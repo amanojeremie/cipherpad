@@ -1,0 +1,66 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+:root {
+  background-color: #242424;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.note-editor {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.note-editor > div:first-child {
+  flex-shrink: 0;
+  flex-grow: 0; 
+}
+
+.note-editor-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.note {
+  resize: none;
+  padding: 8px;
+  font-size: .8em;
+  font-family: "Courier New", monospace;
+}
+
+.note, .markdown {
+  flex: 1;
+  height: 100%;
+  box-sizing: border-box;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.markdown {
+  padding: 0px 16px;
+}
