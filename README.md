@@ -41,8 +41,8 @@ To build the Cipherpad application, first follow Tauri's [Prerequisites](https:/
 Install Cipherpad's node dependencies then run Tauri's build script.
 
 ```
-$ npm install
-$ npm run tauri build
+npm install
+npm run tauri build
 ```
 
 A Dockerfile is provided to build a redistrubtable for Linux environments. It's based off of Ubuntu 20.04 to provide a low GLIBC version requirement.
