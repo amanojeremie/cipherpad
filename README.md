@@ -45,5 +45,5 @@ npm install
 npm run tauri build
 ```
 
-A Dockerfile is provided to build a redistrubtable for Linux environments. It's based off of Ubuntu 20.04 to provide a low GLIBC version requirement.
+A Dockerfile is provided to build a redistributable for Linux environments. It's based off of Ubuntu 20.04 to provide a low GLIBC version requirement.
 A workaround for [this](https://github.com/tauri-apps/tauri/issues/1355) Tauri issue.
