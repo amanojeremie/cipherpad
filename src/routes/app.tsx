@@ -1,4 +1,4 @@
-import { open, save } from '@tauri-apps/api/dialog';
+import { open, save } from '@tauri-apps/plugin-dialog';
 import { useEffect, useState } from "react"
 import { useCipherpad } from "../providers/CipherpadProvider"
 import { useNavigate } from "react-router-dom";
@@ -25,8 +25,8 @@ export default function App() {
   const onUploadButtonClicked = async () => {
     try {
       const fileToUpload = await open();
-      if (fileToUpload !== null && !Array.isArray(fileToUpload)) {
-        const fileName = fileToUpload.split(/[\\/]/).pop();
+      if (fileToUpload !== null && !Array.isArray(fileToUpload) && fileToUpload.name != null) {
+        const fileName = fileToUpload.name.split(/[\\/]/).pop();
         if (fileName !== undefined) {
           const newBlobPad: Pad = {
             parentId: parentNode,
@@ -38,7 +38,7 @@ export default function App() {
           setUploadingId(id);
           try {
             await refreshCipherpadData();
-            await encryptFileToPad({id, parentId: newBlobPad.parentId, metadata: newBlobPad.padMetadata}, fileToUpload);
+            await encryptFileToPad({id, parentId: newBlobPad.parentId, metadata: newBlobPad.padMetadata}, fileName);
           }
           catch (e) {
             await deletePadById(id);

@@ -1,4 +1,4 @@
-import { open, save } from '@tauri-apps/api/dialog';
+import { open, save } from '@tauri-apps/plugin-dialog';
 import { useNavigate } from 'react-router-dom';
 import { useCipherpad } from '../providers/CipherpadProvider';
 import Form from 'react-bootstrap/Form';
@@ -17,8 +17,9 @@ export default function Root() {
       const cipherpadToTryOpen = await open();
       setLoading(true);
       if (cipherpadToTryOpen !== null && !Array.isArray(cipherpadToTryOpen)) {
-        await openOrCreateCipherpadWithPassword(cipherpadToTryOpen, password);
-        navigate('/app');
+        setLastError(JSON.stringify(cipherpadToTryOpen));
+        //await openOrCreateCipherpadWithPassword(cipherpadToTryOpen.path, password);
+        //navigate('/app');
       }
     }
     catch (err) {

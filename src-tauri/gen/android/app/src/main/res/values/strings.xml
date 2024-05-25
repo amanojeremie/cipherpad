@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">cipherpad</string>
+    <string name="main_activity_title">cipherpad</string>
+</resources>

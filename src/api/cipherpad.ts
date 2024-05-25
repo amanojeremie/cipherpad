@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api';
+import { invoke } from "@tauri-apps/api/core"
 import { NodeTree } from '../types/pad';
 
 export async function openOrCreateCipherpad(path: string) {

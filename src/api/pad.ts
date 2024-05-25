@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api';
+import { invoke } from "@tauri-apps/api/core"
 import { EncryptedPad, Pad, PadData, PadMap, PadMetadata, PadNode, SerializedPadMap } from '../types/pad';
 import { serializeEncryptedPad, serializePad, serializePadNode } from '../utils/pad-utils';
 
