@@ -17,9 +17,8 @@ export default function Root() {
       const cipherpadToTryOpen = await open();
       setLoading(true);
       if (cipherpadToTryOpen !== null && !Array.isArray(cipherpadToTryOpen)) {
-        setLastError(JSON.stringify(cipherpadToTryOpen));
-        //await openOrCreateCipherpadWithPassword(cipherpadToTryOpen.path, password);
-        //navigate('/app');
+        await openOrCreateCipherpadWithPassword(cipherpadToTryOpen.path, password);
+        navigate('/app');
       }
     }
     catch (err) {
