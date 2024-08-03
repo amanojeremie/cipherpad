@@ -42,11 +42,13 @@ export default function PadBlobView() {
   }, []);
 
   return (
-    <div className="viewer">
+    <div className="viewer-container">
       <div>
         <button onClick={() => navigate('/app')}>Back</button>
       </div>
-      {getViewer()}
+      <div className="viewer">
+        {getViewer()}
+      </div>
     </div>
   );
 }

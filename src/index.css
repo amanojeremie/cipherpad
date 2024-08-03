@@ -45,6 +45,22 @@ body {
   overflow: hidden;
 }
 
+.note-editor .note {
+  visibility: hidden;
+}
+
+.note-editor:hover .note {
+  visibility: visible;
+}
+
+.note-editor .markdown {
+  visibility: hidden;
+}
+
+.note-editor:hover .markdown {
+  visibility: visible;
+}
+
 .note {
   resize: none;
   padding: 8px;
@@ -63,4 +79,21 @@ body {
 
 .markdown {
   padding: 0px 16px;
+}
+
+.viewer-container, .viewer {
+  width: 100%;
+}
+
+.viewer img {
+  display: block;
+  max-width: 100%;
+}
+
+.viewer-container .viewer {
+  visibility: hidden;
+}
+
+.viewer-container:hover .viewer {
+  visibility: visible;
 }

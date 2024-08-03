@@ -10,11 +10,11 @@ import { createPad, decrpytPadToFile, deletePadById, encryptFileToPad } from "..
 import { EncryptedPad, Pad } from '../types/pad';
 
 export default function App() {
-  const {cipherpadState: { padMap }, cipherpadUiState: {loading, currentNodeChildren, currentNode, parentNode}, refreshCipherpadData, setCurrentNode, setCurrentPad} = useCipherpad();
+  const {cipherpadState: { padMap }, cipherpadUiState: {loading, currentNodeChildren, currentNode, parentNode, breadcrumb}, refreshCipherpadData, setCurrentNode, setCurrentPad, pushBreadcrumb, popBreadcrumb} = useCipherpad();
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);
   const [uploadingId, setUploadingId] = useState<string | undefined>(undefined);
   const [lastError, setLastError] = useState<string | undefined>(undefined);
-  const [selectedBlobPad, setSelectedBlobPad] = useState<EncryptedPad | undefined>(undefined);
+  const [selectedBlobPad, setSelectedBlobPad] = useState<EncryptedPad | undefined>(undefined)
   const navigate = useNavigate();
 
   const onCreateButtonClicked = () => {
@@ -38,7 +38,7 @@ export default function App() {
           setUploadingId(id);
           try {
             await refreshCipherpadData();
-            await encryptFileToPad({id, parentId: newBlobPad.parentId, metadata: newBlobPad.padMetadata}, fileName);
+            await encryptFileToPad({id, parentId: newBlobPad.parentId, metadata: newBlobPad.padMetadata}, fileToUpload.path);
           }
           catch (e) {
             await deletePadById(id);
@@ -99,9 +99,13 @@ export default function App() {
   return (
     <Container>
       <h1>Cipherpad</h1>
+      <h2>{breadcrumb.join(' / ')}</h2>
       <Button variant="secondary" role="link" size="sm" onClick={onCreateButtonClicked}>Create</Button>{' '}
       <Button variant="secondary" role="link" size="sm" onClick={onUploadButtonClicked}>Upload</Button>{' '}
-      {currentNode !== null && <Button variant="secondary" role="link" size="sm" onClick={() => {setCurrentNode(parentNode)}}>Up</Button>}
+      {currentNode !== null && <Button variant="secondary" role="link" size="sm" onClick={() => {
+        setCurrentNode(parentNode);
+        popBreadcrumb();
+      }}>Up</Button>}
       <Table bordered size="sm">
         <tbody>
           {currentNodeChildren.map((encryptedPad) => {
@@ -124,6 +128,7 @@ export default function App() {
               <td className="text-center">
                 <Button variant="secondary" role="link" onClick={() => {
                   setCurrentNode(encryptedPad.id);
+                  pushBreadcrumb(encryptedPad.metadata.name);
                 }}>
                   /
                 </Button>

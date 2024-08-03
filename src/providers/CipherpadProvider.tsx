@@ -14,6 +14,7 @@ interface CipherpadUiState {
   currentNode: string | null,
   currentPad: EncryptedPad | null,
   currentNodeChildren: EncryptedPad[],
+  breadcrumb: string[],
   parentNode: string | null,
 }
 
@@ -28,6 +29,8 @@ export interface CipherpadContextType {
   setCipherpadUiState: React.Dispatch<React.SetStateAction<CipherpadUiState>>,
   setCurrentNode: (id: string | null) => void;
   setCurrentPad: (encryptedPad: EncryptedPad | null) => void;
+  pushBreadcrumb: (name: string) => void;
+  popBreadcrumb: () => void;
 }
 
 const CipherpadContext = createContext<CipherpadContextType | undefined>(undefined);
@@ -63,6 +66,7 @@ export default function CipherpadProvider({children}: PropsWithChildren) {
     currentNode: null,
     currentPad: null,
     currentNodeChildren: [],
+    breadcrumb: [],
     parentNode: null
   });
   const {currentNode} = cipherpadUiState;
@@ -114,6 +118,21 @@ export default function CipherpadProvider({children}: PropsWithChildren) {
     }));
   }
 
+  const pushBreadcrumb = (name: string) => {
+    setCipherpadUiState(cipherpadUiState => ({
+      ...cipherpadUiState,
+      breadcrumb: [...cipherpadUiState.breadcrumb, name],
+    }));
+  }
+
+
+  const popBreadcrumb = () => {
+    setCipherpadUiState(cipherpadUiState => ({
+      ...cipherpadUiState,
+      breadcrumb: cipherpadUiState.breadcrumb.slice(0, -1),
+    }));
+  }
+
   const cipherpadContext: CipherpadContextType = {
     isCipherpadOpen,
     cipherpadUiState,
@@ -124,6 +143,8 @@ export default function CipherpadProvider({children}: PropsWithChildren) {
     setCipherpadUiState,
     setCurrentNode,
     setCurrentPad,
+    pushBreadcrumb,
+    popBreadcrumb,
   };
 
   useEffect(() => {
